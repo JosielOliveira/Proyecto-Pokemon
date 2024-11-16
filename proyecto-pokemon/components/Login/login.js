@@ -2,7 +2,7 @@ import {
   setSessionData,
   checkLoginStatus,
   redirectToDashboard,
-} from "../../common.js";
+} from "../../common.js";  
 
 document.addEventListener("DOMContentLoaded", () => {
   initializeLoginForm();
