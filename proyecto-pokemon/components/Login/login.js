@@ -1,9 +1,3 @@
-import {
-  setSessionData,
-  checkLoginStatus,
-  redirectToDashboard,
-} from "../../common.js";  
-
 document.addEventListener("DOMContentLoaded", () => {
   initializeLoginForm();
 });
@@ -62,8 +56,6 @@ function handleLoginSuccess(username) {
   localStorage.setItem("username", username);
 
   // Guardamos la hora de inicio de la sesión en sessionStorage
-  setSessionData("sessionStartTime", new Date().toISOString());
-
-  redirectToDashboard();
-  window.location.href = 'index.html';
+  
+  window.location.href = '../login.html';
 }

@@ -38,5 +38,12 @@ async function cargarPokemons() {
   });
 }
 
+export function renderLogin() {
+  const isLogin = localStorage.getItem("loggedIn");
+  if(isLogin !=="true"){
+    window.location.href = "./components/login/login.html";
+  }
+}
+renderLogin();
 // Llama a la función `cargarPokemons` para iniciar el proceso de carga y mostrar los Pokémon en la interfaz.
 cargarPokemons();
