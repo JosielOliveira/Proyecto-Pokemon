@@ -17,7 +17,7 @@ function initializeLoginForm() {
 
   const validUser = {
     username: "admin",
-    password: "password123",
+    password: "1234",
   };
 
   loginForm.addEventListener("submit", (event) => {
@@ -65,4 +65,5 @@ function handleLoginSuccess(username) {
   setSessionData("sessionStartTime", new Date().toISOString());
 
   redirectToDashboard();
+  window.location.href = 'index.html';
 }
