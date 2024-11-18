@@ -5,22 +5,22 @@ const API_BASE = "https://pokeapi.co/api/v2";
 export async function pedirPokemons() {
   // Realiza una solicitud HTTP a la URL que obtiene los Pokémon, utilizando la función `fetch`.
   // `await` asegura que se espere a que la respuesta esté disponible antes de continuar.
-const response = await fetch(`${API_BASE}/pokemon`);
+  const response = await fetch(`${API_BASE}/pokemon`);
 
   // Imprime en la consola la respuesta completa obtenida de la API, para depuración.
-console.log("🚀 ~ pedirPokemons ~ response:", response);
+  console.log("🚀 ~ pedirPokemons ~ response:", response);
 
   // Convierte la respuesta de la API en un objeto JSON. `await` asegura que se espere a la conversión antes de seguir.
-const data = await response.json();
+  const data = await response.json();
 
   // Imprime en la consola el objeto `data`, que contiene toda la información JSON obtenida de la API.
-console.log("🚀 ~ pedirPokemons ~ data:", data);
+  console.log("🚀 ~ pedirPokemons ~ data:", data);
 
   // Imprime en la consola solo la propiedad `results` de `data`, que contiene una lista de los Pokémon.
-console.log("🚀 ~ pedirPokemons ~ data.results:", data.results);
+  console.log("🚀 ~ pedirPokemons ~ data.results:", data.results);
 
   // Retorna el array `results` de `data`, que contiene los Pokémon con detalles básicos.
-return data.results;
+  return data.results;
 }
 
 // Exporta una función asíncrona llamada `pedirMasInfoDelPokemon` para obtener más detalles de un Pokémon específico.
@@ -28,11 +28,24 @@ return data.results;
 export async function pedirMasInfoDelPokemon(url) {
   // Realiza una solicitud HTTP a la URL especificada (`url`) usando `fetch`.
   // `await` asegura que la ejecución espere a la respuesta antes de continuar.
-const response = await fetch(url);
+  const response = await fetch(url);
 
   // Convierte la respuesta a JSON para obtener los datos en formato de objeto.
-const data = await response.json();
+  const data = await response.json();
 
   // Retorna el objeto `data` que contiene los detalles completos del Pokémon.
-return data;
+  return data;
+}
+
+// Exporta una función asíncrona llamada `pedirTiposDePokemon` para obtener los tipos de Pokémon desde la API.
+export async function pedirTiposDePokemon() {
+  // Realiza una solicitud HTTP a la URL que obtiene los tipos de Pokémon, utilizando la función `fetch`.
+  // `await` asegura que se espere a que la respuesta esté disponible antes de continuar.
+  const response = await fetch(`${API_BASE}/type`);
+
+  // Convierte la respuesta de la API en un objeto JSON. `await` asegura que se espere a la conversión antes de seguir.
+  const data = await response.json();
+
+  // Retorna el array `results` de `data`, que contiene los tipos de Pokémon.
+  return data.results;
 }
