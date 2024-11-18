@@ -4,12 +4,29 @@ body {
   margin: 0;
   display: flex;
   justify-content: center;
+  position: relative; /* Añadir posición relativa */
+}
+
+body::before {
+  content: "";
+  position: fixed; /* Cambiar a posición fija */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('images/pikachu.png'); /* Ruta a la imagen de Pikachu */
+  background-repeat: repeat; /* Repetir la imagen en mosaico */
+  background-size: 250px 250px; /* Ajustar el tamaño de la imagen */
+  opacity: 0.1; /* Transparencia del 50% */
+  z-index: -1; /* Colocar detrás del contenido */
 }
 
 #app {
   max-width: 800px;
   width: 100%;
   padding: 20px;
+  position: relative; /* Asegurar que el contenido esté por encima del fondo */
+  z-index: 1; /* Asegurar que el contenido esté por encima del fondo */
 }
 
 header {
