@@ -59,11 +59,15 @@ main {
   text-align: center;
   background-color: white;
   transition: transform 0.3s;
+  border: 2px solid #ddd; /* Añadir contorno a las tarjetas */
 }
 
 .card img {
-  max-width: 100%;
-  height: auto;
+  width: 100%; /* Ajustar el ancho de la imagen al 100% del contenedor */
+  max-width: 150px; /* Ancho máximo de la imagen */
+  height: auto; /* Mantener la proporción de la imagen */
+  display: block; /* Asegurar que la imagen se comporte como un bloque */
+  margin: 0 auto; /* Centrar la imagen horizontalmente */
 }
 
 .card:hover {
