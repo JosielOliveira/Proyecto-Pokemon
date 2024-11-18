@@ -36,6 +36,12 @@ header {
   margin-bottom: 20px;
 }
 
+#logo {
+  width: 250px; /* Ajusta el tamaño del logo */
+  height: auto; /* Mantén la proporción del logo */
+  margin-right: 20px; /* Añade un margen a la derecha para separar del título */
+}
+
 #search {
   padding: 8px;
   width: 200px;

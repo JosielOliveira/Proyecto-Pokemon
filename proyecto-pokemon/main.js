@@ -13,15 +13,7 @@ const searchInput = document.getElementById('search');
 
 // Lista de Pokémon
 let pokemonList = [
-  { name: 'Bulbasaur', type: 'Grass', url: 'https://pokeapi.co/api/v2/pokemon/1/' },
-  { name: 'Charmander', type: 'Fire', url: 'https://pokeapi.co/api/v2/pokemon/4/' },
-  { name: 'Squirtle', type: 'Water', url: 'https://pokeapi.co/api/v2/pokemon/7/' },
-  { name: 'Caterpie', type: 'Bug', url: 'https://pokeapi.co/api/v2/pokemon/10/' },
-  { name: 'Weedle', type: 'Bug', url: 'https://pokeapi.co/api/v2/pokemon/13/' },
-  { name: 'Pidgey', type: 'Normal', url: 'https://pokeapi.co/api/v2/pokemon/16/' },
-  { name: 'Rattata', type: 'Normal', url: 'https://pokeapi.co/api/v2/pokemon/19/' },
-  { name: 'Spearow', type: 'Normal', url: 'https://pokeapi.co/api/v2/pokemon/21/' },
-  { name: 'Ekans', type: 'Poison', url: 'https://pokeapi.co/api/v2/pokemon/23/' },
+
   { name: 'Pikachu', type: 'Electric', url: 'https://pokeapi.co/api/v2/pokemon/25/' }
 ];
 
