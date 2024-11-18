@@ -1,15 +1,14 @@
-// Importa las funciones `pedirPokemons` y `pedirMasInfoDelPokemon` desde el archivo "api" en la carpeta "utils".
-// Estas funciones permiten obtener una lista de Pokémon y detalles adicionales de cada Pokémon.
-import { pedirPokemons, pedirMasInfoDelPokemon } from "./utils/api";
+// Importa las funciones `pedirPokemons`, `pedirMasInfoDelPokemon` y `pedirTiposDePokemon` desde el archivo "api" en la carpeta "utils".
+// Estas funciones permiten obtener una lista de Pokémon, detalles adicionales de cada Pokémon y los tipos de Pokémon.
+import { pedirPokemons, pedirMasInfoDelPokemon, pedirTiposDePokemon } from "./utils/api";
 
 // Importa la función `crearPokemonInfoCards` desde el archivo "Card" en la carpeta "components".
 // Esta función genera una tarjeta con la información de un Pokémon.
 import { crearPokemonInfoCards } from "./components/Card";
 
-// Selecciona el elemento HTML con el ID "pokemon-container", donde se añadirán las tarjetas de los Pokémon.
+// Selecciona los elementos HTML con los IDs "pokemon-container" y "type-filter", donde se añadirán las tarjetas de los Pokémon y los filtros de tipo.
 const pokemonContainer = document.getElementById("pokemon-container");
-
-// Obtener referencias a los elementos del DOM
+const typeFilter = document.getElementById("type-filter");
 const searchInput = document.getElementById('search');
 
 // Lista de Pokémon
@@ -36,9 +35,10 @@ function displayPokemon(pokemon) {
 }
 
 // Función para filtrar Pokémon
-function filterPokemon(searchText) {
+function filterPokemon(searchText, type) {
   const filteredPokemon = pokemonList.filter(p => 
-    p.name.toLowerCase().includes(searchText.toLowerCase())
+    p.name.toLowerCase().includes(searchText.toLowerCase()) &&
+    (type === '' || p.types.some(t => t.type.name === type))
   );
   displayPokemon(filteredPokemon);
 }
@@ -46,7 +46,15 @@ function filterPokemon(searchText) {
 // Añadir event listener al campo de búsqueda
 searchInput.addEventListener('input', (event) => {
   const searchText = event.target.value;
-  filterPokemon(searchText);
+  const type = typeFilter.value;
+  filterPokemon(searchText, type);
+});
+
+// Añadir event listener al filtro de tipo
+typeFilter.addEventListener('change', (event) => {
+  const type = event.target.value;
+  const searchText = searchInput.value;
+  filterPokemon(searchText, type);
 });
 
 // Función para obtener la información detallada de los Pokémon
@@ -68,34 +76,37 @@ async function fetchPokemonDetails() {
   }
 }
 
-// Llama a la función para obtener la información detallada de los Pokémon
+// Función para obtener los tipos de Pokémon y actualizar el filtro de tipo
+async function fetchPokemonTypes() {
+  try {
+    const types = await pedirTiposDePokemon();
+    types.forEach(type => {
+      const option = document.createElement('option');
+      option.value = type.name;
+      option.textContent = type.name;
+      typeFilter.appendChild(option);
+    });
+  } catch (error) {
+    console.error('Error fetching Pokémon types:', error);
+  }
+}
+
+// Llama a las funciones para obtener la información detallada de los Pokémon y los tipos de Pokémon
 fetchPokemonDetails();
+fetchPokemonTypes();
 
 // Declara una función asíncrona `cargarPokemons` que se encarga de cargar y mostrar los Pokémon en la interfaz.
 async function cargarPokemons() {
-  // Llama a `pedirPokemons` para obtener la lista inicial de Pokémon desde la API.
   const pokemons = await pedirPokemons();
-
-  // Utiliza `Promise.all` para hacer una solicitud adicional de información para cada Pokémon en `pokemons`.
-  // Mapea cada elemento `pokemon` en la lista para obtener su URL y llama a `pedirMasInfoDelPokemon`.
   const pokemosConMasInfo = await Promise.all(
     pokemons.map((pokemon) => {
       return pedirMasInfoDelPokemon(pokemon.url);
     })
   );
-
-  // Imprime en la consola el array `pokemosConMasInfo`, que ahora contiene objetos con la información detallada de cada Pokémon.
   console.log("🚀 ~ pokemosConMasInfo ~ pokemosConMasInfo:", pokemosConMasInfo);
-
-  // Itera sobre cada elemento `pokemon` en `pokemosConMasInfo` para crear y mostrar una tarjeta con su información.
   pokemosConMasInfo.forEach((pokemon) => {
-    // Llama a `crearPokemonInfoCards` para generar una tarjeta (`card`) con la información del Pokémon.
     const card = crearPokemonInfoCards(pokemon);
-
-    // Imprime en la consola la tarjeta creada para este Pokémon, útil para verificar que se creó correctamente.
     console.log("🚀 ~ pokemosConMasInfo.forEach ~ card:", card);
-
-    // Agrega la tarjeta creada al contenedor `pokemonContainer` en la página HTML.
     pokemonContainer.appendChild(card);
   });
 }
@@ -107,5 +118,4 @@ export function renderLogin() {
   }
 }
 renderLogin();
-// Llama a la función `cargarPokemons` para iniciar el proceso de carga y mostrar los Pokémon en la interfaz.
 cargarPokemons();
