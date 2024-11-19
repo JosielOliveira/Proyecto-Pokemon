@@ -17,7 +17,7 @@ body::before {
   background-image: url('images/pikachu.png'); /* Ruta a la imagen de Pikachu */
   background-repeat: repeat; /* Repetir la imagen en mosaico */
   background-size: 250px 250px; /* Ajustar el tamaño de la imagen */
-  opacity: 0.1; /* Transparencia del 50% */
+  opacity: 0.1; /* Transparencia del 10% */
   z-index: -1; /* Colocar detrás del contenido */
 }
 
