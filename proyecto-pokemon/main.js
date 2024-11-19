@@ -12,10 +12,7 @@ const typeFilter = document.getElementById("type-filter");
 const searchInput = document.getElementById('search');
 
 // Lista de Pokémon
-let pokemonList = [
-
-  { name: 'Pikachu', type: 'Electric', url: 'https://pokeapi.co/api/v2/pokemon/25/' }
-];
+let pokemonList = [];
 
 // Función para mostrar los Pokémon en el contenedor
 function displayPokemon(pokemon) {
@@ -36,7 +33,7 @@ function filterPokemon(searchText, type) {
 }
 
 // Añadir event listener al campo de búsqueda
-searchInput.addEventListener('input', (event) => {
+searchInput.addEventListener('input', (event) => { 
   const searchText = event.target.value;
   const type = typeFilter.value;
   filterPokemon(searchText, type);
@@ -52,7 +49,8 @@ typeFilter.addEventListener('change', (event) => {
 // Función para obtener la información detallada de los Pokémon
 async function fetchPokemonDetails() {
   try {
-    const detailedPokemonPromises = pokemonList.map(async (pokemon) => {
+    const pokemons = await pedirPokemons();
+    const detailedPokemonPromises = pokemons.map(async (pokemon) => {
       const response = await fetch(pokemon.url);
       const data = await response.json();
       return {
