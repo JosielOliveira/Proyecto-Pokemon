@@ -60,6 +60,17 @@ async function fetchPokemonDetails() {
       };
     });
     pokemonList = await Promise.all(detailedPokemonPromises);
+    
+    // Añadir Pikachu manualmente
+    const pikachu = {
+      name: 'pikachu',
+      types: [{ type: { name: 'electric' } }],
+      sprites: {
+        front_default: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png'
+      }
+    };
+    pokemonList.push(pikachu);
+    
     displayPokemon(pokemonList); // Mostrar todos los Pokémon al cargar la página
   } catch (error) {
     console.error('Error fetching Pokémon details:', error);
@@ -84,28 +95,3 @@ async function fetchPokemonTypes() {
 // Llama a las funciones para obtener la información detallada de los Pokémon y los tipos de Pokémon
 fetchPokemonDetails();
 fetchPokemonTypes();
-
-// Declara una función asíncrona `cargarPokemons` que se encarga de cargar y mostrar los Pokémon en la interfaz.
-async function cargarPokemons() {
-  const pokemons = await pedirPokemons();
-  const pokemosConMasInfo = await Promise.all(
-    pokemons.map((pokemon) => {
-      return pedirMasInfoDelPokemon(pokemon.url);
-    })
-  );
-  console.log("🚀 ~ pokemosConMasInfo ~ pokemosConMasInfo:", pokemosConMasInfo);
-  pokemosConMasInfo.forEach((pokemon) => {
-    const card = crearPokemonInfoCards(pokemon);
-    console.log("🚀 ~ pokemosConMasInfo.forEach ~ card:", card);
-    pokemonContainer.appendChild(card);
-  });
-}
-
-export function renderLogin() {
-  const isLogin = localStorage.getItem("loggedIn");
-  if(isLogin !=="true"){
-    window.location.href = "./components/login/login.html";
-  }
-}
-renderLogin();
-cargarPokemons();
